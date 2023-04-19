@@ -22,3 +22,4 @@ for i in range(len(numbers)):
     if numbers[i] == x:
         count_x += 1
 print(f"Количество элементов равных {x} - {count_x}")
+# print(numbers.count(x))
