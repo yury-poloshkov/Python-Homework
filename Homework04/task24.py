@@ -26,9 +26,7 @@ print(garden)
 
 best_point = 0
 best_point_sum = cur_point_sum = garden[-1] + garden[0] + garden[1]
-
-print(best_point_sum)
-for cur_point in range(1, len(garden)):
+print(best_point_sum)for cur_point in range(1, len(garden)):
     cur_point_sum = cur_point_sum - garden[cur_point-2] + garden[(cur_point+1)%len(garden)]
     if best_point_sum < cur_point_sum:
         best_point = cur_point
