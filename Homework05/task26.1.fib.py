@@ -4,8 +4,10 @@
 # Требуется найти N-е число Фибоначчи
 
 def fib(n):
-    for n in [1,2]:
-        return 1
+    if n in [0, 1]:
+        return n
     return fib(n-1) + fib(n-2)
 
-fib_num = int(input("Введите количество чисел"))
+number = int(input("Введите число: "))
+fib_number = fib(number)
+print(f"F{number} = {fib_number}")
