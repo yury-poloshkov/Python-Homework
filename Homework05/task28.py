@@ -6,7 +6,9 @@
 
 def sum(a,b):
     if b == 0:
-        return a
+        if a == 0:
+            return 0
+        return sum(a-1,0) + 1
     return sum(a, b-1) + 1
 
 a = int(input("Введите 1-е слагаемое: "))
