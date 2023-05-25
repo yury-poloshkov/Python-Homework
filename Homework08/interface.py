@@ -26,25 +26,36 @@ def CreateNewContact(path):
     add_cont(path, familyName + " " + firstName + " " + secondName + " " + phoneNumber)
 
 def ShowAllContacts(path):
-    print("\n ----- Список имеющихся контактов -----")
-    show_all(path)
+    phoneBook = read_phoneBook(path)
+    PrintPhoneBook(phoneBook, "----- Список имеющихся контактов -----")
 
 
 def FindContact(path):
     searchMask = input("\nВведите данные для поиска: ")
-    print("\n----- Результаты поиска -----")
-    search(path, searchMask)
+    phoneBook = search(path, searchMask)
+    PrintPhoneBook(phoneBook, "----- Результаты поиска -----")
+    return phoneBook
 
 def ChangeContact(path):
-    ShowAllContacts(path)
-    idContact = int(input("\nВведите номер контакта для изменения: "))
-    delete_contact(path, idContact)
-    CreateNewContact(path)
+    filtredPhoneBook = FindContact(path)
+    if len(filtredPhoneBook) != 0:
+        idContact = int(input("\nВведите номер контакта для изменения: "))
+        delete_contact(path, filtredPhoneBook[idContact-1])
+        CreateNewContact(path)
 
 def DeleteContact(path):
-    ShowAllContacts(path)
-    idContact = int(input("\nВведите номер контакта для удаления: "))
-    delete_contact(path, idContact)
+    filtredPhoneBook = FindContact(path)
+    if len(filtredPhoneBook) != 0:
+        idContact = int(input("\nВведите номер контакта для удаления: "))
+        delete_contact(path, filtredPhoneBook[idContact-1])
 
 def TimeOut():
     input("\nДля продолжения работы нажмите Enter")
+
+def PrintPhoneBook(array, header):
+    print("\n" + header)
+    if len(array) == 0:
+        print("Список контактов пуст")
+    else:
+        for i in range(len(array)):
+            print(str(i+1) + ". " +array[i])

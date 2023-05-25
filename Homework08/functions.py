@@ -13,31 +13,23 @@ def add_cont(file_name, newContact):
     data.write(newContact + "\n")
     data.close()
 
-def show_all(file_name):
-    data = open(file_name, "r")
-    i = 1
-    for line in data:
-        print(str(i) + ". " + line[:-1])
-        i += 1
-    data.close()
+def search(file_name, searchMask = " ") :
+    phoneBook = read_phoneBook(file_name)
+    if searchMask != " ":
+        phoneBook = list(filter(lambda x: searchMask.lower() in x.lower(), phoneBook))
+    return phoneBook
 
-def search(file_name, stroka = " ") :
-    data = open(file_name, 'r')
-    i = 0
-    for line in data:
-        if stroka.lower() in line.lower():
-            i += 1
-            print(str(i) + ". " + line[:-1])
-    if i == 0:
-        print("По заданным условиям поиска ничего не обнаружено")
-    data.close()
+def delete_contact(file_name, contact):
+    phoneBook = read_phoneBook(file_name)
+    phoneBook.remove(contact)
+    data = open(file_name, 'w')
+    data.writelines("%s\n" % contact for contact in phoneBook)
+    data.close
 
-def delete_contact(file_name, contact_id):
+def read_phoneBook(file_name):
     data = open(file_name, 'r')
     phoneBook = list()
     for line in data:
         phoneBook.append(line[:-1])
-    phoneBook.pop(contact_id - 1)
-    data = open(file_name, 'w')
-    data.writelines("%s\n" % contact for contact in phoneBook)
-    data.close
+    data.close()
+    return sorted(phoneBook)
